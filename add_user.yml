@@ -1,5 +1,4 @@
 ---
-
 - name: Add multibple users
   hosts: all
   tasks: 
