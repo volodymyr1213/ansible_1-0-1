@@ -1,7 +1,6 @@
 ---
-
 - name: Add multibple users
-  hosts: all
+  hosts: localhost
   tasks: 
     - name: Add bob
       user:

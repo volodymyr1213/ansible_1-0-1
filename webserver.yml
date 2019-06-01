@@ -1,6 +1,6 @@
 ---
 - name: Install webserver
-  hosts: all
+  hosts: localhost
   tasks: 
     - name: Install httpd
       package: 

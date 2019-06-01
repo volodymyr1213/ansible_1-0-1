@@ -1,0 +1,23 @@
+---
+- name: Add user on the remote system 
+  hosts: localhost
+  become: yes
+  become_method: sudo
+  tasks:
+
+    - name: confirm kernel version
+      shell: "uname -a"
+
+    - name: Create a SSH key for user Volodymyr in ~Volodymyr/.ssh/id_rsa
+      user:
+        name: Volodymyr      # example name 
+        generate_ssh_key: yes
+        ssh_key_file: .ssh/id_rsa
+
+
+    - name: Set authorized key defining key options
+      authorized_key:
+        user: Volodymyr
+        state: present
+        key: "{{ lookup('file', '/home/Volodymyr/.ssh/id_rsa.pub') }}"
+        key_options: 'no-port-forwarding,from="10.0.1.1"'
