@@ -13,7 +13,7 @@
             state: latest
         with_items:
           - wget
-          - unzip
+          - unzip                                           # install multiple packeges
           - vim 
           - php-gd
           - httpd
@@ -23,3 +23,30 @@
           - php-mysql
           - php-fpm 
         ignore_errors: true
+        
+      - name: Download 1 package                            # here we are dowloading wordpress
+        get_url:
+          url: "https://wordpress.org/latest.tar.gz"
+          dest: /tmp/
+          
+      - name: Unzip Wordpress file 
+        unarchive:
+          src: "/tmp/latest.tar.gz"
+          dest: /var/www/html/
+        become: yes
+        become_method: sudo
+      
+      
+      - name: Move files to html folder 
+        shell: "mv /var/www/html/wordpress/* /var/www/html/"
+        become: yes
+        become_method: sudo
+        ignore_errors: yes
+        
+      - name: Restart httpd service  
+        systemd:
+          name: httpd
+          state: started
+        become: yes
+        become_method: sudo
+      
