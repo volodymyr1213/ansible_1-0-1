@@ -31,7 +31,7 @@
           
       - name: Unzip Wordpress file 
         unarchive:
-          src: "/tmp/latest.tar.gz"
+          src: "/tmp/wordpress-5.2.1.tar.gz"
           dest: /var/www/html/
         become: yes
         become_method: sudo
